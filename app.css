@@ -1,0 +1,41 @@
+#list{
+    width: 600px;
+    height: 100%;
+    margin: 0 auto;
+    border-radius: 15px;
+    border-radius: 1px solid green;
+    background-color: blue;
+}
+
+#nodata{
+    color: red;
+    margin: 40 auto;
+}
+#nodatadiv{
+    width: 50%;
+    height: 20%;
+    border: 1px solid;
+    margin: 0 auto;
+    text-align: center;
+
+}
+.char{
+    display: flex;
+    flex-direction: row;
+    width: 80%;
+    height: 100px;
+    margin: 0 auto;
+    margin-top: 20px;
+    border: 1px solid black;
+
+}
+
+.imag{
+    background-color:green; 
+    margin: 20px 20px;
+    height: 80%; 
+    width: 100px; 
+    margin: 0 auto;
+    border-radius:20%;
+    
+}
