@@ -55,10 +55,10 @@ class dbService {
                 if(!singleUserDetails){
                     reject(new Error(err.message));
                 } else{ 
-                    resolve({Name:singleUserDetails.name, Gender:singleUserDetails.gender, Height:singleUserDetails.height});
+                    resolve([singleUserDetails.name, singleUserDetails.gender, singleUserDetails.height]);
                 }
             });
-           console.log(response.Name);
+            //console.log(response);
             return response;
 
         }catch(error){
@@ -68,42 +68,28 @@ class dbService {
     
 }
 
-$(document).on('click', '.name', function () {
-    fetch('https://swapi.dev/api/people')
+  document.querySelector('#list').addEventListener('click', function(event){
+    console.log(event.target);
+    if(event.target.className ==="name"){
+        let id = +event.target.dataset.id + 1;
+        console.log("yess ooooo", event.target.dataset.id);
+        fetch('https://swapi.dev/api/people/' + id)
     .then(response => response.json())
     .then(data => {
 
-   let $fd=$(this).attr('data-id');
-   console.log($fd);
-   console.log(data.results[$fd]);
+   
+   console.log(data);
    const db =  dbService.getDbServiceInstance();
-    const result = db.getAllData(data.results[$fd]);
-    console.log(result);
+    const result = db.getAllData(data);
+    console.log(JSON.stringify(result));
+    
+    
 
     document.getElementsByClassName('genderHeight')[$(this).attr('data-id')].innerHTML=`<p>${result.promiseValue.Height}</p>${result.Gender}<p></P>`;
 
 });
-   /*
-   localStorage.setItem('mybutt', JSON.stringify($fd));
-   window.location.href="profile.html";
-   */
-   
+        //deleteRowById(event.target.dataset.id);
+    }
+    
+});
 
-});
-/*
- let showdetails = document.querySelectorAll('.name');
- if(showdetails){
-     showdetails.addEventListener('onclick', ()=>{
-         console.log( "yeessss");
-     });
- }
-document.querySelector('#list .char .name').addEventListener('click', function(event){
-    console.log(event.target);
-    if(event.target.className ==="delete-row-btn"){
-        deleteRowById(event.target.dataset.id);
-    }
-    if(event.target.class === "edit-row-btn"){
-        editRowById(event.target.dataset.id)
-    }
-});
-*/
