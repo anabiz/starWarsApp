@@ -23,19 +23,33 @@ let loadHTMLTable = (data)=>{
     let tableHtml = "";
     data1.forEach(function(Name){
         tableHtml += "<div class='char'>";
-        tableHtml += `<img class='imag' src="images/checkMark.png" >`;
-        tableHtml += `<h3>${Name.name}</h3>`;
+
+        tableHtml += `<div class='imagName'>`;
+        tableHtml += `<img class='imag' src="images/dummy.png" >`;
+        tableHtml += `<h3 class='name'>${Name.name}</h3>`;
+        tableHtml += `</div>`;
+
+        tableHtml += `<div class='genderHeight'>`;
+        tableHtml += `<p>`;
+        tableHtml += `</p>`;
+        tableHtml += `<p>`;
+        tableHtml += `</p>`;
+        tableHtml += `</div>`;
+
         tableHtml +=  "</div>";
-
-        /*
-        tableHtml += `<td>${new Date(date).toLocaleString()}</td>`;
-        tableHtml += `<td><button class="delete-row-btn" data-id=${id}>Delete></td>`;
-        tableHtml += `<td><button class="delete-row-btn" data-id=${id}>Edit></td>`;
-        tableHtml +="</tr>";
-
-        */
 
     });
     characters.innerHTML = tableHtml;
-
 }
+
+
+
+document.querySelector('.name').addEventListener('click', function(event){
+    console.log(event.target);
+    if(event.target.className ==="delete-row-btn"){
+        deleteRowById(event.target.dataset.id);
+    }
+    if(event.target.class === "edit-row-btn"){
+        editRowById(event.target.dataset.id)
+    }
+});
