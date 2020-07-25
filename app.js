@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
 });
 const characters= document.querySelector('#list');
-characters.innerHTML="<div id='nodatadiv'><h2 id='nodata'>Fetching to get Data...</h2></div>";
+characters.innerHTML="<div id='nodatadiv'><h2 id='nodata'>Fetching Data...</h2></div>";
 
 let loadUsers = (data)=>{
     let results = data.results;
@@ -29,9 +29,9 @@ let loadUsers = (data)=>{
 }
 
 const instance = null;
-class user {
+class User {
     static getUserInstance(){
-        return instance ? instance : new user();
+        return instance ? instance : new User();
     }
     async getUserProperty(singleUserDetails){
 
@@ -53,17 +53,16 @@ class user {
     
 }
 
+//
 document.querySelector('#list').addEventListener('click', function(event){
-    //console.log(event.target.parentNode.getElementsByClassName)
     if(event.target.id ==="clickablename"){
-        //console.log(event.target.parentNode)
         let id = +event.target.dataset.id + 1;
          
         fetch('https://swapi.dev/api/people/' + id)
         .then(response => response.json())
         .then(data => {
 
-            const db =  user.getUserInstance();
+            const db =  User.getUserInstance();
             const result =  db.getUserProperty(data);
             result.then((user)=>{
 
@@ -89,35 +88,4 @@ document.querySelector('#list').addEventListener('click', function(event){
 });
 
 
-
-
-
-document.querySelector('#list').addEventListener('click', function(event){
-     
-    if(event.target.id === "clickablename1"){
-        if(document.getElementById("height").parentElement.dataset.id==event.target.dataset.id){
-            console.log(this.document.getElementById("height").dataset.id), "kkiiuuuyy";
-            
-        }
-        //console.log(document.getElementById("height"))
-    
-        console.log(event.target.dataset.id)
-        let x = document.querySelectorAll("height");
-        let y = document.querySelectorAll("gender");
-        x.forEach((elem)=>{
-           // if(elem.dataset.id == id){
-                
-                console.log(elem.innerHTML);
-            //}
-        })
-        /*if (x.style.display === "none" && y.style.display === "none") {
-            x.style.display = "block";
-            y.style.display = "block"
-        } else {
-            x.style.display = "none";
-            y.style.display = "none";
-        }
-        */
-    }
-});
 
