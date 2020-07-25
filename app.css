@@ -25,7 +25,7 @@
     height: 150px;
     margin: 0 auto;
     margin-top: 20px;
-    border: 1px solid red;
+    
 
 }
 
@@ -36,12 +36,11 @@
     height: 100px;
     margin: 0 auto;
     margin-top: 20px;
-    border: 1px solid black;
+    
 }
 
-.imag{
-    background-color:green; 
-    border: 1px solid red;
+.imag{ 
+    
     margin-top: 10px;
     height: 80%; 
     width: 100px; 
@@ -50,7 +49,6 @@
 }
 
 .name{
-    border: 1px solid;
     text-align: right;
     margin-left: 25%;
     width: 80%;
@@ -66,6 +64,6 @@
 }
 
 .height{
-    color: violet;
-    font: 1em sans-serif;
+    font-family: 'Courier New', Courier, monospace ;
+    
 }
