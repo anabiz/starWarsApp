@@ -60,3 +60,12 @@
 #clickablename{
     font: 1em sans-serif;
 }
+
+.gender{
+    font: 1em sans-serif;
+}
+
+.height{
+    color: violet;
+    font: 1em sans-serif;
+}

@@ -18,7 +18,7 @@ let loadUsers = (data)=>{
         usersHtml += "<div class='char'>";
         usersHtml += `<div class='imagName'>`;
         usersHtml += `<img class='imag' src="images/dummy.png" >`;
-        usersHtml += `<div class='name' data-id='${id}'><h4 id='clickablename' data-id='${id}'>${Name.name}</h4></div>`;
+        usersHtml += `<div class='name' data-id='${id}'><h4 id='clickablename' data-id='${id}'>Name: ${Name.name}</h4></div>`;
         usersHtml += `</div>`;
         usersHtml +=  "</div>";
     });
@@ -53,11 +53,9 @@ class user {
 document.querySelector('#list').addEventListener('click', function(event){
     
     if(event.target.id ==="clickablename"){
-
+        console.log(event.target.parentNode)
         let id = +event.target.dataset.id + 1;
-        let node = document.createElement("P"); 
-        event.target.parentNode.appendChild(node);    
-        
+         
         fetch('https://swapi.dev/api/people/' + id)
         .then(response => response.json())
         .then(data => {
@@ -68,13 +66,13 @@ document.querySelector('#list').addEventListener('click', function(event){
 
                 let tableHtml1 = "<div class='genderHeight'>";
                 tableHtml1 += `<p id='height'>`;
-                tableHtml1 += `${user.Height}`;
+                tableHtml1 += `Height: ${user.Height}`;
                 tableHtml1 += `</p>`;
                 tableHtml1 += `<p id='gender'>`;
-                tableHtml1 += `${user.Gender}`;
+                tableHtml1 += `Gender: ${user.Gender}`;
                 tableHtml1 += `</p>`;
-                tableHtml1 += `<p id='name1'>`;
-                tableHtml1 += `${user.Name}`;
+                tableHtml1 += `<p id='clickablename1'>`;
+                tableHtml1 += `Name: ${user.Name}`;
                 tableHtml1 += `</p>`;
                 tableHtml1 += "</div>";
 
@@ -82,6 +80,26 @@ document.querySelector('#list').addEventListener('click', function(event){
             })
     
         });
+        
+    }
+
+    let arr = document.getElementsByClassName("char");
+    //arr.forEach((ar)=>{
+        console.log(arr.innerHTML)
+    //})
+
+
+    if(event.target.id === "clickablename1"){
+        let x = document.getElementById("height");
+        let y = document.getElementById("gender");
+
+        if (x.style.display === "none" && y.style.display === "none") {
+            x.style.display = "block";
+            y.style.display = "block"
+        } else {
+            x.style.display = "none";
+            y.style.display = "none";
+        }
         
     }
     
