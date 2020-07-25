@@ -15,13 +15,16 @@ let loadUsers = (data)=>{
     let usersHtml = "";
     results.forEach(function(Name, id){
 
-        usersHtml += "<div class='char'>";
-        usersHtml += `<div class='imagName'>`;
-        usersHtml += `<img class='imag' src="images/dummy.png" >`;
-        usersHtml += `<div class='name' data-id='${id}'><h4 id='clickablename' data-id='${id}'>Name: ${Name.name}</h4></div>`;
-        usersHtml += `</div>`;
-        usersHtml +=  "</div>";
+        usersHtml += `<div class='char'>
+                        <div class='imagName'>
+                        <img class='imag' src="images/teacher.jpg" >
+                        <div class='name' data-id='${id}'><h4 id='clickablename' data-id='${id}'>${Name.name}</h4></div>
+                        </div>
+                        </div><hr>`
+        
+        
     });
+
     characters.innerHTML = usersHtml;
 }
 
@@ -51,9 +54,9 @@ class user {
 }
 
 document.querySelector('#list').addEventListener('click', function(event){
-    
+    //console.log(event.target.parentNode.getElementsByClassName)
     if(event.target.id ==="clickablename"){
-        console.log(event.target.parentNode)
+        //console.log(event.target.parentNode)
         let id = +event.target.dataset.id + 1;
          
         fetch('https://swapi.dev/api/people/' + id)
@@ -64,14 +67,14 @@ document.querySelector('#list').addEventListener('click', function(event){
             const result =  db.getUserProperty(data);
             result.then((user)=>{
 
-                let tableHtml1 = "<div class='genderHeight'>";
-                tableHtml1 += `<p id='height'>`;
+                let tableHtml1 = "<div class='genderHeight' data-id=${id}>";
+                tableHtml1 += `<p id='height' data-id=${id}>`;
                 tableHtml1 += `Height: ${user.Height}`;
                 tableHtml1 += `</p>`;
-                tableHtml1 += `<p id='gender'>`;
+                tableHtml1 += `<p id='gender' data-id=${id}>`;
                 tableHtml1 += `Gender: ${user.Gender}`;
                 tableHtml1 += `</p>`;
-                tableHtml1 += `<p id='clickablename1'>`;
+                tableHtml1 += `<p id='clickablename1' data-id=${id}>`;
                 tableHtml1 += `Name: ${user.Name}`;
                 tableHtml1 += `</p>`;
                 tableHtml1 += "</div>";
@@ -82,26 +85,39 @@ document.querySelector('#list').addEventListener('click', function(event){
         });
         
     }
-
-    let arr = document.getElementsByClassName("char");
-    //arr.forEach((ar)=>{
-        console.log(arr.innerHTML)
-    //})
+    
+});
 
 
+
+
+
+document.querySelector('#list').addEventListener('click', function(event){
+     
     if(event.target.id === "clickablename1"){
-        let x = document.getElementById("height");
-        let y = document.getElementById("gender");
-
-        if (x.style.display === "none" && y.style.display === "none") {
+        if(document.getElementById("height").parentElement.dataset.id==event.target.dataset.id){
+            console.log(this.document.getElementById("height").dataset.id), "kkiiuuuyy";
+            
+        }
+        //console.log(document.getElementById("height"))
+    
+        console.log(event.target.dataset.id)
+        let x = document.querySelectorAll("height");
+        let y = document.querySelectorAll("gender");
+        x.forEach((elem)=>{
+           // if(elem.dataset.id == id){
+                
+                console.log(elem.innerHTML);
+            //}
+        })
+        /*if (x.style.display === "none" && y.style.display === "none") {
             x.style.display = "block";
             y.style.display = "block"
         } else {
             x.style.display = "none";
             y.style.display = "none";
         }
-        
+        */
     }
-    
 });
 
