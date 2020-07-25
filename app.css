@@ -14,7 +14,6 @@
 #nodatadiv{
     width: 50%;
     height: 20%;
-    border: 1px solid;
     margin: 0 auto;
     text-align: center;
 
@@ -42,10 +41,22 @@
 
 .imag{
     background-color:green; 
-    margin: 20px 20px;
+    border: 1px solid red;
+    margin-top: 10px;
     height: 80%; 
     width: 100px; 
-    margin: 0 auto;
     border-radius:20%;
     
+}
+
+.name{
+    border: 1px solid;
+    text-align: right;
+    margin-left: 25%;
+    width: 80%;
+
+}
+
+#clickablename{
+    font: 1em sans-serif;
 }

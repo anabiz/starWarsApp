@@ -2,63 +2,45 @@
 document.addEventListener('DOMContentLoaded', ()=>{
     fetch('https://swapi.dev/api/people')
     .then(response => response.json())
-    .then(data => {console.log(data.results[7]);loadHTMLTable(data);});
-    console.log('loadeddd');
-    //loadHTMLTable([]);
-});
-
-
-
-let loadHTMLTable = (data)=>{
-    const characters= document.querySelector('#list');
-    let data1 = data.results;
-
-    if(!data){
-        characters.innerHTML="<div id='nodatadiv'><h2 id='nodata'>Unable to get Data</h2></div>";
-        return 0;
-    }else{
-        console.log(data1)
-    }
-
-    let tableHtml = "";
-    data1.forEach(function(Name, id){
-        tableHtml += "<div class='char'>";
-
-        tableHtml += `<div class='imagName'>`;
-        tableHtml += `<img class='imag' src="images/dummy.png" >`;
-        tableHtml += `<h3 class='name' data-id='${id}'>${Name.name}</h3>`;
-        tableHtml += `</div>`;
-
-        tableHtml += `<div class='genderHeight'>`;
-        tableHtml += `<p id='height'>`;
-        tableHtml += `</p>`;
-        tableHtml += `<p id='gender'>`;
-        tableHtml += `</p>`;
-        tableHtml += `</div>`;
-
-        tableHtml +=  "</div>";
-
-        console.log(id);
+    .then(data => {
+        loadUsers(data);
     });
-    characters.innerHTML = tableHtml;
+
+});
+const characters= document.querySelector('#list');
+characters.innerHTML="<div id='nodatadiv'><h2 id='nodata'>Fetching to get Data...</h2></div>";
+
+let loadUsers = (data)=>{
+    let results = data.results;
+    let usersHtml = "";
+    results.forEach(function(Name, id){
+
+        usersHtml += "<div class='char'>";
+        usersHtml += `<div class='imagName'>`;
+        usersHtml += `<img class='imag' src="images/dummy.png" >`;
+        usersHtml += `<div class='name' data-id='${id}'><h4 id='clickablename' data-id='${id}'>${Name.name}</h4></div>`;
+        usersHtml += `</div>`;
+        usersHtml +=  "</div>";
+    });
+    characters.innerHTML = usersHtml;
 }
 
 const instance = null;
-class dbService {
-    static getDbServiceInstance(){
-        return instance ? instance : new dbService();
+class user {
+    static getUserInstance(){
+        return instance ? instance : new user();
     }
-    async getAllData(singleUserDetails){
+    async getUserProperty(singleUserDetails){
+
         try{
-            const response = await new Promise((resolve, reject)=>{
-                
-                if(!singleUserDetails){
-                    reject(new Error(err.message));
+            const response = new Promise((resolve, reject)=>{   
+                if(singleUserDetails){
+                    resolve({Height:singleUserDetails.height, Gender:singleUserDetails.gender, Name:singleUserDetails.name});
+                    
                 } else{ 
-                    resolve([singleUserDetails.name, singleUserDetails.gender, singleUserDetails.height]);
+                    reject(new Error(err.message));
                 }
             });
-            //console.log(response);
             return response;
 
         }catch(error){
@@ -68,27 +50,39 @@ class dbService {
     
 }
 
-  document.querySelector('#list').addEventListener('click', function(event){
-    console.log(event.target);
-    if(event.target.className ==="name"){
+document.querySelector('#list').addEventListener('click', function(event){
+    
+    if(event.target.id ==="clickablename"){
+
         let id = +event.target.dataset.id + 1;
-        console.log("yess ooooo", event.target.dataset.id);
+        let node = document.createElement("P"); 
+        event.target.parentNode.appendChild(node);    
+        
         fetch('https://swapi.dev/api/people/' + id)
-    .then(response => response.json())
-    .then(data => {
+        .then(response => response.json())
+        .then(data => {
 
-   
-   console.log(data);
-   const db =  dbService.getDbServiceInstance();
-    const result = db.getAllData(data);
-    console.log(JSON.stringify(result));
+            const db =  user.getUserInstance();
+            const result =  db.getUserProperty(data);
+            result.then((user)=>{
+
+                let tableHtml1 = "<div class='genderHeight'>";
+                tableHtml1 += `<p id='height'>`;
+                tableHtml1 += `${user.Height}`;
+                tableHtml1 += `</p>`;
+                tableHtml1 += `<p id='gender'>`;
+                tableHtml1 += `${user.Gender}`;
+                tableHtml1 += `</p>`;
+                tableHtml1 += `<p id='name1'>`;
+                tableHtml1 += `${user.Name}`;
+                tableHtml1 += `</p>`;
+                tableHtml1 += "</div>";
+
+                event.target.parentNode.innerHTML = tableHtml1; 
+            })
     
-    
-
-    document.getElementsByClassName('genderHeight')[$(this).attr('data-id')].innerHTML=`<p>${result.promiseValue.Height}</p>${result.Gender}<p></P>`;
-
-});
-        //deleteRowById(event.target.dataset.id);
+        });
+        
     }
     
 });
