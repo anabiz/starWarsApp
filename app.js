@@ -6,11 +6,13 @@ document.addEventListener('DOMContentLoaded', ()=>{
         loadUsers(data);
         eachUserDetail(data);
     });
-
 });
+
+//displays "fetching data" and disappears after the data is fetched.
 const characters= document.querySelector('#list');
 characters.innerHTML="<div id='nodatadiv'><h2 id='nodata'>Fetching Data...</h2></div>";
 
+//this function displays a dummy images, immediate after loading the document, along side with the corresponding name user 
 let loadUsers = (data)=>{
     let results = data.results;
     let usersHtml = "";
@@ -26,6 +28,7 @@ let loadUsers = (data)=>{
     characters.innerHTML = usersHtml;
 }
  
+
 //This function uses the output from the user class the display uer detail when any user's name is clicked.
 let eachUserDetail = (data)=>{
     //adding event listener to all the 'clickablename' class(user name)
@@ -33,7 +36,6 @@ let eachUserDetail = (data)=>{
        if(event.target.id ==="clickablename"){
             let id = parseInt(event.target.dataset.id, 10);
             let characterData = data.results[id];
-            
             //calling the 'getUserProperty' of the 'User' class
             const db =  User.getUserInstance();
             const result =  db.getUserProperty(characterData);
