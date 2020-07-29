@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  fetch("https://swapi.dev/api/people/", { method: "GET" })
+  fetch("https://swapi.dev/api/people/")
     .then((response) => response.json())
     .then((data) => {
       loadUsers(data);
