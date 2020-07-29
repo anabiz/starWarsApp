@@ -1,6 +1,6 @@
 
 document.addEventListener('DOMContentLoaded', ()=>{
-    fetch('https://swapi.dev/api/people')
+    fetch('https://swapi.dev/api/people/')
     .then(response => response.json())
     .then(data => {
         loadUsers(data);
